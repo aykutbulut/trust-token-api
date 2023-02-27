@@ -6,7 +6,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
   <meta content="Bikeshed version f043d3484, updated Fri Feb 17 10:53:48 2023 -0800" name="generator">
   <link href="https://wicg.github.io/trust-token-api/" rel="canonical">
-  <meta content="c7d65b1a01a7985a3076d64c39c8f66b5776f8bb" name="document-revision">
+  <meta content="5e830e44ab8b1a8d05d8431a94eb5475b0834cd0" name="document-revision">
 <style>/* style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
@@ -611,7 +611,7 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
   </div>
   <div class="p-summary" data-fill-with="abstract">
    <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
-   <p>Private State Token API is a web platform API that allows propagating a limited amount of anti-fraud signals across sites, using the Privacy Pass protocol as an underlying primitive.</p>
+   <p>The Private State Token API is a web platform API that allows propagating a limited amount of signals across sites, using the Privacy Pass protocol as an underlying primitive.</p>
   </div>
   <div data-fill-with="at-risk"></div>
   <h2 class="no-num no-toc no-ref heading settled" id="status"><span class="content">Status of this document</span></h2>
@@ -722,10 +722,9 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
    <h2 class="heading settled" data-level="1" id="goals"><span class="secno">1. </span><span class="content">Goals</span><a class="self-link" href="#goals"></a></h2>
    <p>The goal of the Private State Token API is to transfer a limited amount of signals across
 sites through time in a privacy preserving manner. It achieves this using
-privacy pass protocol <a data-link-type="biblio" href="#biblio-privacy-pass-issuance-protocol" title="Privacy Pass Issuance Protocol">[PRIVACY-PASS-ISSUANCE-PROTOCOL]</a> specified in working
-documents of privacy pass working group of IETF <a data-link-type="biblio" href="#biblio-privacy-pass-wg">[PRIVACY-PASS-WG]</a>. Private
-State Tokens can be considered as a web platform implementation of Privacy
-Pass.</p>
+privacy pass protocol <a data-link-type="biblio" href="#biblio-privacy-pass-issuance-protocol" title="Privacy Pass Issuance Protocol">[PRIVACY-PASS-ISSUANCE-PROTOCOL]</a> specified in the working
+documents of the IETF Privacy Pass Working Group <a data-link-type="biblio" href="#biblio-privacy-pass-wg">[PRIVACY-PASS-WG]</a>. Private
+State Tokens can be considered to be a web platform implementation of Privacy Pass.</p>
    <h2 class="heading settled" data-level="2" id="background"><span class="secno">2. </span><span class="content">Background</span><a class="self-link" href="#background"></a></h2>
    <p>The Private State Token API provides a mechanism for anonymous authentication. The
 API provided by the user agent does not authenticate clients, instead it facilitates
@@ -939,11 +938,16 @@ new one.</p>
 type that the specification supports at this time.</p>
 <pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-tokentype"><code><c- g>TokenType</c-></code></dfn> { <dfn class="idl-code" data-dfn-for="TokenType" data-dfn-type="enum-value" data-export id="dom-tokentype-private-state-token"><code><c- s>"private-state-token"</c-></code><a class="self-link" href="#dom-tokentype-private-state-token"></a></dfn> };
 </pre>
+   <p>The <code class="idl"><a data-link-type="idl" href="#enumdef-tokenversion" id="ref-for-enumdef-tokenversion">TokenVersion</a></code> is currently set to <code>1</code>, as this is the only <code>"private-state-token"</code> version that the specification supports at this time.</p>
+<pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-tokenversion"><code><c- g>TokenVersion</c-></code></dfn> { <dfn class="idl-code" data-dfn-for="TokenVersion" data-dfn-type="enum-value" data-export id="dom-tokenversion-1"><code><c- s>"1"</c-></code><a class="self-link" href="#dom-tokenversion-1"></a></dfn> };
+</pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#enumdef-operationtype" id="ref-for-enumdef-operationtype">OperationType</a></code> refers to which operation the user agent is attempting to complete.</p>
 <pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-operationtype"><code><c- g>OperationType</c-></code></dfn> { <dfn class="idl-code" data-dfn-for="OperationType" data-dfn-type="enum-value" data-export id="dom-operationtype-token-request"><code><c- s>"token-request"</c-></code><a class="self-link" href="#dom-operationtype-token-request"></a></dfn>, <dfn class="idl-code" data-dfn-for="OperationType" data-dfn-type="enum-value" data-export id="dom-operationtype-send-redemption-record"><code><c- s>"send-redemption-record"</c-></code><a class="self-link" href="#dom-operationtype-send-redemption-record"></a></dfn>, <dfn class="idl-code" data-dfn-for="OperationType" data-dfn-type="enum-value" data-export id="dom-operationtype-token-redemption"><code><c- s>"token-redemption"</c-></code><a class="self-link" href="#dom-operationtype-token-redemption"></a></dfn> };
 </pre>
    <p>The <code class="idl"><a data-link-type="idl" href="#dictdef-privatestatetoken" id="ref-for-dictdef-privatestatetoken">PrivateStateToken</a></code> contains the information required to make a fetch request.</p>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-privatestatetoken"><code><c- g>PrivateStateToken</c-></code></dfn> {
+  <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-tokentype" id="ref-for-enumdef-tokentype①"><c- n>TokenType</c-></a> <dfn class="idl-code" data-dfn-for="PrivateStateToken" data-dfn-type="dict-member" data-export data-type="TokenType " id="dom-privatestatetoken-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-privatestatetoken-type"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-tokenversion" id="ref-for-enumdef-tokenversion①"><c- n>TokenVersion</c-></a> <dfn class="idl-code" data-dfn-for="PrivateStateToken" data-dfn-type="dict-member" data-export data-type="TokenVersion " id="dom-privatestatetoken-version"><code><c- g>version</c-></code><a class="self-link" href="#dom-privatestatetoken-version"></a></dfn>;
   <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-operationtype" id="ref-for-enumdef-operationtype①"><c- n>OperationType</c-></a> <dfn class="idl-code" data-dfn-for="PrivateStateToken" data-dfn-type="dict-member" data-export data-type="OperationType " id="dom-privatestatetoken-operation"><code><c- g>operation</c-></code><a class="self-link" href="#dom-privatestatetoken-operation"></a></dfn>;
   <a data-link-type="idl-name" href="#enumdef-refreshpolicy" id="ref-for-enumdef-refreshpolicy①"><c- n>RefreshPolicy</c-></a> <dfn class="dfn-paneled idl-code" data-default="&quot;none&quot;" data-dfn-for="PrivateStateToken" data-dfn-type="dict-member" data-export data-type="RefreshPolicy " id="dom-privatestatetoken-refreshpolicy"><code><c- g>refreshPolicy</c-></code></dfn> = "none";
   <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString" id="ref-for-idl-USVString"><c- b>USVString</c-></a>> <dfn class="idl-code" data-dfn-for="PrivateStateToken" data-dfn-type="dict-member" data-export data-type="sequence<USVString> " id="dom-privatestatetoken-issuers"><code><c- g>issuers</c-></code><a class="self-link" href="#dom-privatestatetoken-issuers"></a></dfn>;
@@ -974,11 +978,12 @@ type that the specification supports at this time.</p>
    <p>This section explains the issuing protocol. It has two sections that explains
 the issuing protocol steps for user agents and issuers.</p>
    <h3 class="heading settled" data-level="6.1" id="issue-request"><span class="secno">6.1. </span><span class="content">Creating An Issue Request</span><a class="self-link" href="#issue-request"></a></h3>
-   <div class="example" id="example-e7886913">
-    <a class="self-link" href="#example-e7886913"></a> An issue request is created and fetched as demonstrated in the following snippet. 
+   <div class="example" id="example-issue-request">
+    <a class="self-link" href="#example-issue-request"></a> An issue request is created and fetched as demonstrated in the following snippet. 
 <pre class="language-javascript highlight"><c- a>let</c-> issueRequest <c- o>=</c-> <c- ow>new</c-> Request<c- p>(</c-><c- u>"https://example.issuer:1234/issuer_path?public=0&amp;private=0"</c-><c- p>,</c-> <c- p>{</c->
   privateStateToken<c- o>:</c-> <c- p>{</c->
     type<c- o>:</c-> <c- u>"token-request"</c-><c- p>,</c->
+    version<c- o>:</c-> <c- mf>1</c-><c- p>,</c->
     issuer<c- o>:</c-> <c- u>"https://example.issuer"</c->
   <c- p>}</c->
 <c- p>});</c->
@@ -1028,8 +1033,8 @@ fetch<c- p>(</c->issueRequest<c- p>);</c->
      <p><a data-link-type="dfn" href="https://fetch.spec.whatwg.org/#concept-header-list-set-structured-header" id="ref-for-concept-header-list-set-structured-header①">Set a structured field value</a> given (<a data-link-type="http-header" href="#http-headerdef-sec-private-state-token-version" id="ref-for-http-headerdef-sec-private-state-token-version"><code>Sec-Private-State-Token-Version</code></a>, <var>version</var>)
             in <var>request</var>’s header list.</p>
    </ol>
-   <div class="example" id="example-2005541d">
-    <a class="self-link" href="#example-2005541d"></a> Private State Token HTTP request headers created for a typical fetch is as follows. 
+   <div class="example" id="example-pst-request-headers">
+    <a class="self-link" href="#example-pst-request-headers"></a> Private State Token HTTP request headers created for a typical fetch is as follows. 
 <pre>Sec-Private-State-Token: &lt;masked tokens encoded as base64 string>
 Sec-Private-State-Token-Version: &lt;cryptographic protocol version, VOPRF or PMB>
 </pre>
@@ -1044,8 +1049,8 @@ specified in the request <a data-link-type="http-header" href="#http-headerdef-s
 passed in URL <code>private</code> and <code>public</code> parameters happens in this signing
 step. Issuer returns the signed tokens in the <a data-link-type="http-header" href="#http-headerdef-sec-private-state-token" id="ref-for-http-headerdef-sec-private-state-token②">Sec-Private-State-Token</a> response header
 value encoded as a base64 byte string.</p>
-   <div class="example" id="example-fd1d464a">
-    <a class="self-link" href="#example-fd1d464a"></a> The following snippet displays a typical response demonstrating the Private State Token
+   <div class="example" id="example-pst-response">
+    <a class="self-link" href="#example-pst-response"></a> The following snippet displays a typical response demonstrating the Private State Token
 header. 
 <pre>Sec-Private-State-Token: &lt;token encoded as base64 string>
 </pre>
@@ -1088,12 +1093,13 @@ header.
 embedded on the top level origin may redeem tokens stored in the user agent from a
 specific issuer to learn <code>public</code> and/or <code>private</code> data encoded in the
 tokens.</p>
-   <div class="example" id="example-39d3c3b4">
-    <a class="self-link" href="#example-39d3c3b4"></a> Redemption is carried through fetch as demonstrated in the following
+   <div class="example" id="example-redemption-request">
+    <a class="self-link" href="#example-redemption-request"></a> Redemption is carried through fetch as demonstrated in the following
 snippet. The default value for refreshPolicy is <code>'none'</code>. 
 <pre class="language-javascript highlight"><c- a>let</c-> redemptionRequest <c- o>=</c-> <c- ow>new</c-> Request<c- p>(</c-><c- t>'https://example.issuer:1234/redemption_path'</c-><c- p>,</c-> <c- p>{</c->
   privateStateToken<c- o>:</c-> <c- p>{</c->
     type<c- o>:</c-> <c- t>'token-redemption'</c-><c- p>,</c->
+    version<c- o>:</c-> <c- mf>1</c-><c- p>,</c->
     issuer<c- o>:</c-> <c- t>'https://example.issuer'</c-><c- p>,</c->
     refreshPolicy<c- o>:</c-> <c- p>{</c-><c- t>'none'</c-><c- p>,</c-> <c- t>'refresh'</c-><c- p>}</c->
   <c- p>}</c->
@@ -1438,6 +1444,7 @@ Schlesinger for their contributions. Thanks to Chris Wilson for reviewing and me
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
+   <li><a href="#dom-tokenversion-1">"1"</a><span>, in § 5.1</span>
    <li><a href="#append-private-state-token-issue-request-headers">append private state token issue request headers</a><span>, in § 6.1</span>
    <li><a href="#append-private-state-token-redemption-request-headers">append private state token redemption request headers</a><span>, in § 7</span>
    <li><a href="#associate-the-issuer">associate the issuer</a><span>, in § 4</span>
@@ -1478,6 +1485,9 @@ Schlesinger for their contributions. Thanks to Chris Wilson for reviewing and me
    <li><a href="#request-token-refresh-policy">token refresh policy</a><span>, in § 5.2</span>
    <li><a href="#dom-operationtype-token-request">"token-request"</a><span>, in § 5.1</span>
    <li><a href="#enumdef-tokentype">TokenType</a><span>, in § 5.1</span>
+   <li><a href="#enumdef-tokenversion">TokenVersion</a><span>, in § 5.1</span>
+   <li><a href="#dom-privatestatetoken-type">type</a><span>, in § 5.1</span>
+   <li><a href="#dom-privatestatetoken-version">version</a><span>, in § 5.1</span>
   </ul>
   <aside aria-labelledby="infopaneltitle-for-07886e33695d0e7b473ef18f656ad7ac" class="dfn-panel" data-for="07886e33695d0e7b473ef18f656ad7ac" id="infopanel-for-07886e33695d0e7b473ef18f656ad7ac">
    <span id="infopaneltitle-for-07886e33695d0e7b473ef18f656ad7ac" style="display:none">Info about the 'Document' external reference.</span><a href="https://dom.spec.whatwg.org/#document">https://dom.spec.whatwg.org/#document</a><b>Referenced in:</b>
@@ -1989,9 +1999,13 @@ Schlesinger for their contributions. Thanks to Chris Wilson for reviewing and me
 
 <c- b>enum</c-> <a href="#enumdef-tokentype"><code><c- g>TokenType</c-></code></a> { <a href="#dom-tokentype-private-state-token"><code><c- s>"private-state-token"</c-></code></a> };
 
+<c- b>enum</c-> <a href="#enumdef-tokenversion"><code><c- g>TokenVersion</c-></code></a> { <a href="#dom-tokenversion-1"><code><c- s>"1"</c-></code></a> };
+
 <c- b>enum</c-> <a href="#enumdef-operationtype"><code><c- g>OperationType</c-></code></a> { <a href="#dom-operationtype-token-request"><code><c- s>"token-request"</c-></code></a>, <a href="#dom-operationtype-send-redemption-record"><code><c- s>"send-redemption-record"</c-></code></a>, <a href="#dom-operationtype-token-redemption"><code><c- s>"token-redemption"</c-></code></a> };
 
 <c- b>dictionary</c-> <a href="#dictdef-privatestatetoken"><code><c- g>PrivateStateToken</c-></code></a> {
+  <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-tokentype"><c- n>TokenType</c-></a> <a data-type="TokenType " href="#dom-privatestatetoken-type"><code><c- g>type</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-tokenversion"><c- n>TokenVersion</c-></a> <a data-type="TokenVersion " href="#dom-privatestatetoken-version"><code><c- g>version</c-></code></a>;
   <c- b>required</c-> <a data-link-type="idl-name" href="#enumdef-operationtype"><c- n>OperationType</c-></a> <a data-type="OperationType " href="#dom-privatestatetoken-operation"><code><c- g>operation</c-></code></a>;
   <a data-link-type="idl-name" href="#enumdef-refreshpolicy"><c- n>RefreshPolicy</c-></a> <a data-default="&quot;none&quot;" data-type="RefreshPolicy " href="#dom-privatestatetoken-refreshpolicy"><code><c- g>refreshPolicy</c-></code></a> = "none";
   <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-USVString"><c- b>USVString</c-></a>> <a data-type="sequence<USVString> " href="#dom-privatestatetoken-issuers"><code><c- g>issuers</c-></code></a>;
@@ -2121,7 +2135,13 @@ Schlesinger for their contributions. Thanks to Chris Wilson for reviewing and me
   <aside aria-labelledby="infopaneltitle-for-enumdef-tokentype" class="dfn-panel" data-for="enumdef-tokentype" id="infopanel-for-enumdef-tokentype">
    <span id="infopaneltitle-for-enumdef-tokentype" style="display:none">Info about the 'TokenType' definition.</span><b><a href="#enumdef-tokentype">#enumdef-tokentype</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-enumdef-tokentype">5.1. Definitions</a>
+    <li><a href="#ref-for-enumdef-tokentype">5.1. Definitions</a> <a href="#ref-for-enumdef-tokentype①">(2)</a>
+   </ul>
+  </aside>
+  <aside aria-labelledby="infopaneltitle-for-enumdef-tokenversion" class="dfn-panel" data-for="enumdef-tokenversion" id="infopanel-for-enumdef-tokenversion">
+   <span id="infopaneltitle-for-enumdef-tokenversion" style="display:none">Info about the 'TokenVersion' definition.</span><b><a href="#enumdef-tokenversion">#enumdef-tokenversion</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-enumdef-tokenversion">5.1. Definitions</a> <a href="#ref-for-enumdef-tokenversion①">(2)</a>
    </ul>
   </aside>
   <aside aria-labelledby="infopaneltitle-for-enumdef-operationtype" class="dfn-panel" data-for="enumdef-operationtype" id="infopanel-for-enumdef-operationtype">
